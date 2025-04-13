@@ -1,13 +1,21 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogOut } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const { isLoggedIn, userType, logout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
@@ -27,18 +35,34 @@ const Navbar: React.FC = () => {
               <Link to="/interview" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-aicruiter-blue animated-border">
                 Interview
               </Link>
-              <Link to="/dashboard" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-aicruiter-blue animated-border">
-                Dashboard
-              </Link>
+              {isLoggedIn && (
+                <Link to="/dashboard" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-aicruiter-blue animated-border">
+                  Dashboard
+                </Link>
+              )}
             </div>
           </div>
           <div className="hidden md:flex items-center">
-            <Link to="/admin">
-              <Button variant="outline" className="mr-4">Admin Login</Button>
-            </Link>
-            <Link to="/interview">
-              <Button className="bg-aicruiter-blue hover:bg-blue-700">Start Interview</Button>
-            </Link>
+            {isLoggedIn ? (
+              <>
+                <span className="mr-4 text-sm font-medium text-gray-700">
+                  {userType === 'admin' ? 'Admin' : 'Candidate'}: {userType === 'admin' ? 'chndeep06@gmail.com' : ''}
+                </span>
+                <Button variant="outline" onClick={handleLogout} className="flex items-center">
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link to="/admin">
+                  <Button variant="outline" className="mr-4">Login</Button>
+                </Link>
+                <Link to="/interview">
+                  <Button className="bg-aicruiter-blue hover:bg-blue-700">Start Interview</Button>
+                </Link>
+              </>
+            )}
           </div>
           <div className="flex items-center md:hidden">
             <button
@@ -64,16 +88,27 @@ const Navbar: React.FC = () => {
             <Link to="/interview" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-aicruiter-blue">
               Interview
             </Link>
-            <Link to="/dashboard" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-aicruiter-blue">
-              Dashboard
-            </Link>
+            {isLoggedIn && (
+              <Link to="/dashboard" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-aicruiter-blue">
+                Dashboard
+              </Link>
+            )}
             <div className="flex flex-col space-y-2 mt-4 px-3 py-2">
-              <Link to="/admin">
-                <Button variant="outline" className="w-full">Admin Login</Button>
-              </Link>
-              <Link to="/interview">
-                <Button className="w-full bg-aicruiter-blue hover:bg-blue-700">Start Interview</Button>
-              </Link>
+              {isLoggedIn ? (
+                <Button variant="outline" onClick={handleLogout} className="w-full flex items-center justify-center">
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Logout
+                </Button>
+              ) : (
+                <>
+                  <Link to="/admin">
+                    <Button variant="outline" className="w-full">Login</Button>
+                  </Link>
+                  <Link to="/interview">
+                    <Button className="w-full bg-aicruiter-blue hover:bg-blue-700">Start Interview</Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

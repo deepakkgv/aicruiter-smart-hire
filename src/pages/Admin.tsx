@@ -1,32 +1,40 @@
-
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
-import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, User, Users, FileText, Download, Search } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Admin: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<string>('admin');
   
+  const { login, isLoggedIn, userType } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Check if the login is for the admin
-    if (email === 'chndeep06@gmail.com' && password === 'password') {
+    const loginType = activeTab === 'admin' ? 'admin' : 'candidate';
+    const success = login(email, password, loginType);
+    
+    if (success) {
       toast({
         title: "Login Successful",
-        description: "Welcome to the AIcruiter admin panel.",
+        description: `Welcome to the AIcruiter ${loginType} panel.`,
       });
-      setIsLoggedIn(true);
+      
+      // Redirect based on user type
+      if (loginType === 'candidate') {
+        navigate('/dashboard');
+      }
     } else {
       toast({
         title: "Login Failed",
@@ -40,7 +48,7 @@ const Admin: React.FC = () => {
     setShowPassword(!showPassword);
   };
   
-  if (isLoggedIn) {
+  if (isLoggedIn && userType === 'admin') {
     return <AdminDashboard />;
   }
   
@@ -48,69 +56,144 @@ const Admin: React.FC = () => {
     <div className="flex items-center justify-center min-h-[80vh] px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Admin Login</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">AIcruiter Login</CardTitle>
           <CardDescription className="text-center">
-            Enter your credentials to access the admin dashboard
+            Login to access the AIcruiter platform
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleLogin}>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                  <Input
-                    id="email"
-                    placeholder="admin@example.com"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10"
-                    required
-                  />
+          <Tabs defaultValue="admin" value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="grid w-full grid-cols-2 mb-4">
+              <TabsTrigger value="admin">
+                <Users className="h-4 w-4 mr-2" />
+                Admin
+              </TabsTrigger>
+              <TabsTrigger value="candidate">
+                <User className="h-4 w-4 mr-2" />
+                Candidate
+              </TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="admin">
+              <form onSubmit={handleLogin}>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="admin-email">Email</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                      <Input
+                        id="admin-email"
+                        placeholder="admin@example.com"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="pl-10"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="admin-password">Password</Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                      <Input
+                        id="admin-password"
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="pl-10"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        className="absolute right-3 top-2.5 text-gray-400"
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-5 w-5" />
+                        ) : (
+                          <Eye className="h-5 w-5" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
                 </div>
+                <Button className="w-full mt-6 bg-aicruiter-blue hover:bg-blue-700" type="submit">
+                  Sign In as Admin
+                </Button>
+              </form>
+              <div className="mt-4 text-center text-sm">
+                <p>
+                  <a href="mailto:support@aicruiter.com" className="text-aicruiter-blue hover:underline">
+                    Forgot password?
+                  </a>
+                </p>
+                <p className="mt-1 text-gray-500">
+                  Demo Admin: chndeep06@gmail.com / password
+                </p>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                  <Input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={togglePasswordVisibility}
-                    className="absolute right-3 top-2.5 text-gray-400"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-5 w-5" />
-                    ) : (
-                      <Eye className="h-5 w-5" />
-                    )}
-                  </button>
+            </TabsContent>
+            
+            <TabsContent value="candidate">
+              <form onSubmit={handleLogin}>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="candidate-email">Email</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                      <Input
+                        id="candidate-email"
+                        placeholder="candidate@example.com"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="pl-10"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="candidate-password">Password</Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                      <Input
+                        id="candidate-password"
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="pl-10"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        className="absolute right-3 top-2.5 text-gray-400"
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-5 w-5" />
+                        ) : (
+                          <Eye className="h-5 w-5" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
                 </div>
+                <Button className="w-full mt-6 bg-aicruiter-blue hover:bg-blue-700" type="submit">
+                  Sign In as Candidate
+                </Button>
+              </form>
+              <div className="mt-4 text-center text-sm">
+                <p>
+                  <a href="mailto:support@aicruiter.com" className="text-aicruiter-blue hover:underline">
+                    Forgot password?
+                  </a>
+                </p>
+                <p className="mt-1 text-gray-500">
+                  Demo Candidate: candidate@example.com / any password
+                </p>
               </div>
-            </div>
-            <Button className="w-full mt-6 bg-aicruiter-blue hover:bg-blue-700" type="submit">
-              Sign In
-            </Button>
-          </form>
-          <div className="mt-4 text-center text-sm">
-            <p>
-              <a href="mailto:support@aicruiter.com" className="text-aicruiter-blue hover:underline">
-                Forgot password?
-              </a>
-            </p>
-            <p className="mt-1 text-gray-500">
-              Demo Login: chndeep06@gmail.com / password
-            </p>
-          </div>
+            </TabsContent>
+          </Tabs>
         </CardContent>
       </Card>
     </div>
@@ -219,7 +302,10 @@ const AdminDashboard: React.FC = () => {
                         <td className="py-3 px-4">
                           <div className="flex space-x-2">
                             <Button variant="outline" size="sm">View</Button>
-                            <Button variant="outline" size="sm">Download PDF</Button>
+                            <Button variant="outline" size="sm">
+                              <Download className="h-4 w-4 mr-1" />
+                              Download PDF
+                            </Button>
                           </div>
                         </td>
                       </tr>
@@ -259,7 +345,10 @@ const AdminDashboard: React.FC = () => {
                       </div>
                       <div className="flex space-x-2">
                         <Button variant="outline" size="sm">View Report</Button>
-                        <Button variant="outline" size="sm">Download PDF</Button>
+                        <Button variant="outline" size="sm">
+                          <FileText className="h-4 w-4 mr-1" />
+                          Download PDF
+                        </Button>
                       </div>
                     </div>
                   </div>

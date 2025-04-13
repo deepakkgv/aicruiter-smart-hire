@@ -1,7 +1,9 @@
-
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/AuthContext';
 import {
   PieChart,
   Pie,
@@ -22,7 +24,34 @@ import {
 } from 'recharts';
 
 const Dashboard: React.FC = () => {
-  // Mock data for charts
+  const { isLoggedIn, userType, logout } = useAuth();
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/admin');
+    }
+  }, [isLoggedIn, navigate]);
+
+  if (!isLoggedIn) {
+    return (
+      <div className="container mx-auto px-4 py-10 text-center">
+        <h1 className="text-2xl font-bold">Please log in to view your dashboard</h1>
+        <Button onClick={() => navigate('/admin')} className="mt-4">
+          Go to Login
+        </Button>
+      </div>
+    );
+  }
+
+  if (userType === 'admin') {
+    return <AdminDashboard />;
+  }
+
+  return <CandidateDashboard />;
+};
+
+const CandidateDashboard: React.FC = () => {
   const skillsData = [
     { subject: 'Technical Knowledge', A: 85, fullMark: 100 },
     { subject: 'Problem Solving', A: 78, fullMark: 100 },
@@ -258,6 +287,219 @@ const Dashboard: React.FC = () => {
         <p className="text-sm text-gray-500 mb-4">
           This dashboard provides a summary of your interview performance. The complete report will be sent to the hiring manager.
         </p>
+      </div>
+    </div>
+  );
+};
+
+const AdminDashboard: React.FC = () => {
+  const candidates = [
+    {
+      id: 1,
+      name: "John Smith",
+      position: "Frontend Developer",
+      interviewDate: "2023-04-12",
+      status: "Selected",
+      score: 92
+    },
+    {
+      id: 2,
+      name: "Emily Johnson",
+      position: "UI/UX Designer",
+      interviewDate: "2023-04-11",
+      status: "Under Review",
+      score: 85
+    },
+    {
+      id: 3,
+      name: "Michael Brown",
+      position: "Backend Developer",
+      interviewDate: "2023-04-10",
+      status: "Not Selected",
+      score: 65
+    }
+  ];
+
+  return (
+    <div className="container mx-auto px-4 py-10">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">Candidate Overview</h1>
+        <p className="text-gray-600">
+          View all candidate interviews and download reports.
+        </p>
+      </div>
+
+      <Card className="mb-8">
+        <CardHeader>
+          <div className="flex justify-between items-center">
+            <CardTitle>Recent Interviews</CardTitle>
+            <Button variant="outline" size="sm">Export All Reports</Button>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-gray-50 border-b">
+                  <th className="text-left py-3 px-4 font-semibold text-sm">Candidate</th>
+                  <th className="text-left py-3 px-4 font-semibold text-sm">Position</th>
+                  <th className="text-left py-3 px-4 font-semibold text-sm">Interview Date</th>
+                  <th className="text-left py-3 px-4 font-semibold text-sm">Score</th>
+                  <th className="text-left py-3 px-4 font-semibold text-sm">Status</th>
+                  <th className="text-left py-3 px-4 font-semibold text-sm">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {candidates.map((candidate) => (
+                  <tr key={candidate.id} className="border-b hover:bg-gray-50">
+                    <td className="py-3 px-4">{candidate.name}</td>
+                    <td className="py-3 px-4">{candidate.position}</td>
+                    <td className="py-3 px-4">{candidate.interviewDate}</td>
+                    <td className="py-3 px-4">{candidate.score}/100</td>
+                    <td className="py-3 px-4">
+                      <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
+                        candidate.status === 'Selected' 
+                          ? 'bg-green-100 text-green-800' 
+                          : candidate.status === 'Under Review'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-red-100 text-red-800'
+                      }`}>
+                        {candidate.status}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4">
+                      <div className="flex space-x-2">
+                        <Button variant="outline" size="sm">View Details</Button>
+                        <Button variant="outline" size="sm">Download PDF</Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Interviews Summary</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span>Total Interviews</span>
+                  <span className="font-medium">24</span>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span>Selected Candidates</span>
+                  <span className="font-medium">12</span>
+                </div>
+                <Progress value={50} className="h-2" />
+              </div>
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span>Under Review</span>
+                  <span className="font-medium">8</span>
+                </div>
+                <Progress value={33} className="h-2" />
+              </div>
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span>Not Selected</span>
+                  <span className="font-medium">4</span>
+                </div>
+                <Progress value={17} className="h-2" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Average Scores</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span>Technical Skills</span>
+                  <span className="font-medium">76%</span>
+                </div>
+                <Progress value={76} className="h-2" />
+              </div>
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span>Communication</span>
+                  <span className="font-medium">84%</span>
+                </div>
+                <Progress value={84} className="h-2" />
+              </div>
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span>Problem Solving</span>
+                  <span className="font-medium">68%</span>
+                </div>
+                <Progress value={68} className="h-2" />
+              </div>
+              <div>
+                <div className="flex justify-between text-sm mb-1">
+                  <span>Cultural Fit</span>
+                  <span className="font-medium">79%</span>
+                </div>
+                <Progress value={79} className="h-2" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Reports Generated</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[200px] flex items-center justify-center">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={[
+                      { name: 'Downloaded', value: 18 },
+                      { name: 'Not Downloaded', value: 6 }
+                    ]}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={80}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    <Cell fill="#2563eb" />
+                    <Cell fill="#e5e7eb" />
+                  </Pie>
+                  <text
+                    x="50%"
+                    y="50%"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    className="text-lg font-bold"
+                    fill="#2563eb"
+                  >
+                    18/24
+                  </text>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="text-center mt-2">
+              <span className="text-sm font-medium text-gray-500">
+                75% of reports downloaded
+              </span>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

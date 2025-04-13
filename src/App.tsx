@@ -12,30 +12,33 @@ import Interview from "./pages/Interview";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <div className="min-h-screen flex flex-col">
-          <Navbar />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/interview" element={<Interview />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </BrowserRouter>
+      <AuthProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <div className="min-h-screen flex flex-col">
+            <Navbar />
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/interview" element={<Interview />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </BrowserRouter>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
