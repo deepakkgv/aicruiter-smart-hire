@@ -63,12 +63,12 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Custom colors for AIcruiter - updated to green theme
+				// Custom colors for AIcruiter
 				aicruiter: {
-					green: '#1b8a5a',
-					lightgreen: '#25c281',
-					orange: '#e29d37',
-					gold: '#d9a642',
+					blue: '#2563eb',
+					teal: '#0d9488',
+					lightblue: '#60a5fa',
+					purple: '#a78bfa',
 				}
 			},
 			fontFamily: {

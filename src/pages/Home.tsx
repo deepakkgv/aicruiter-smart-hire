@@ -21,7 +21,7 @@ const Home: React.FC = () => {
               </p>
               <div className="pt-4 flex flex-wrap gap-4">
                 <Link to="/interview">
-                  <Button size="lg" className="bg-white text-aicruiter-green hover:bg-gray-100">
+                  <Button size="lg" className="bg-white text-aicruiter-blue hover:bg-gray-100">
                     Start Interview
                   </Button>
                 </Link>
@@ -34,13 +34,13 @@ const Home: React.FC = () => {
             </div>
             <div className="lg:w-1/2 flex justify-center">
               <div className="relative w-full max-w-md">
-                <div className="aspect-video bg-green-800/20 rounded-lg backdrop-blur-sm border border-white/20 overflow-hidden shadow-xl">
+                <div className="aspect-video bg-blue-800/20 rounded-lg backdrop-blur-sm border border-white/20 overflow-hidden shadow-xl">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <VideoIcon className="h-16 w-16 text-white/75 animate-pulse-slow" />
                   </div>
                 </div>
-                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-aicruiter-lightgreen/30 rounded-full blur-2xl"></div>
-                <div className="absolute -top-6 -left-6 w-32 h-32 bg-aicruiter-gold/30 rounded-full blur-2xl"></div>
+                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-aicruiter-teal/30 rounded-full blur-2xl"></div>
+                <div className="absolute -top-6 -left-6 w-32 h-32 bg-aicruiter-purple/30 rounded-full blur-2xl"></div>
               </div>
             </div>
           </div>
@@ -59,32 +59,32 @@ const Home: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-                <FileText className="h-8 w-8 text-aicruiter-green" />
+              <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
+                <FileText className="h-8 w-8 text-aicruiter-blue" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Resume Upload</h3>
               <p className="text-gray-600">Upload your resume for intelligent parsing and analysis</p>
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4 relative">
-                <VideoIcon className="h-8 w-8 text-aicruiter-green" />
+              <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4 relative">
+                <VideoIcon className="h-8 w-8 text-aicruiter-blue" />
               </div>
               <h3 className="text-xl font-semibold mb-2">AI Interview</h3>
               <p className="text-gray-600">Complete a video interview with our AI interviewer</p>
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-                <BarChart className="h-8 w-8 text-aicruiter-green" />
+              <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
+                <BarChart className="h-8 w-8 text-aicruiter-blue" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Dashboard</h3>
               <p className="text-gray-600">Review your performance with personalized feedback</p>
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-                <FileText className="h-8 w-8 text-aicruiter-green" />
+              <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
+                <FileText className="h-8 w-8 text-aicruiter-blue" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Admin Report</h3>
               <p className="text-gray-600">Hiring managers receive detailed assessment reports</p>
@@ -129,14 +129,14 @@ const Home: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-aicruiter-green py-16 text-white">
+      <section className="bg-aicruiter-blue py-16 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Experience AI-Powered Interviews?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             Join thousands of candidates who have simplified their job application process with AIcruiter.
           </p>
           <Link to="/interview">
-            <Button size="lg" className="bg-white text-aicruiter-green hover:bg-gray-100">
+            <Button size="lg" className="bg-white text-aicruiter-blue hover:bg-gray-100">
               Start Your Interview Now
             </Button>
           </Link>
