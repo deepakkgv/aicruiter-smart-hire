@@ -1,6 +1,5 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -110,38 +109,4 @@
   .animated-border {
     @apply relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-aicruiter-blue after:transition-all after:duration-300 hover:after:w-full;
   }
-
-  /* New dark theme styles */
-  .dark-theme {
-    @apply bg-[#121212] text-white;
-  }
-  
-  .accent-button {
-    @apply bg-[#FFB950] text-[#121212] font-medium px-5 py-2 rounded-full hover:bg-[#FFA92D] transition-all;
-  }
-  
-  .accent-badge {
-    @apply bg-[#FFB950] text-[#121212] font-medium px-4 py-1 rounded-full text-sm;
-  }
-  
-  .section-title {
-    @apply font-['Space_Grotesk'] text-4xl md:text-5xl lg:text-6xl font-bold;
-  }
-  
-  .section-subtitle {
-    @apply font-['Space_Grotesk'] text-xl md:text-2xl font-medium;
-  }
-  
-  .stat-card {
-    @apply bg-[#1E1E1E] p-4 rounded-lg;
-  }
-  
-  .stat-value {
-    @apply text-[#FFB950] font-bold text-2xl;
-  }
-  
-  .stat-label {
-    @apply text-gray-400 text-sm;
-  }
 }
-
