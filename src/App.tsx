@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
+import About from "./pages/About";
 import Interview from "./pages/Interview";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
@@ -28,6 +29,7 @@ const App = () => (
             <main className="flex-grow">
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="/interview" element={<Interview />} />
                 <Route path="/dashboard" element={<Dashboard />} />
