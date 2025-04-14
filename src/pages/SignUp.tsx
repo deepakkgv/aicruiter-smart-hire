@@ -38,7 +38,7 @@ const SignUp: React.FC = () => {
       return;
     }
     
-    const userType = activeTab === 'admin' ? 'admin' : 'candidate';
+    const userType = activeTab === 'admin' ? 'admin' as const : 'candidate' as const;
     const userData = {
       email,
       password,
