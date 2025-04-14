@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, LogOut } from 'lucide-react';
+import { Menu, X, LogOut, UserPlus } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import Logo from './Logo';
 
@@ -60,6 +60,12 @@ const Navbar: React.FC = () => {
                 <Link to="/admin">
                   <Button variant="outline" className="mr-4">Login</Button>
                 </Link>
+                <Link to="/signup">
+                  <Button variant="outline" className="mr-4 flex items-center">
+                    <UserPlus className="h-4 w-4 mr-2" />
+                    Sign Up
+                  </Button>
+                </Link>
                 <Link to="/interview">
                   <Button className="bg-aicruiter-blue hover:bg-blue-700">Start Interview</Button>
                 </Link>
@@ -108,6 +114,12 @@ const Navbar: React.FC = () => {
                 <>
                   <Link to="/admin">
                     <Button variant="outline" className="w-full">Login</Button>
+                  </Link>
+                  <Link to="/signup">
+                    <Button variant="outline" className="w-full flex items-center justify-center">
+                      <UserPlus className="h-4 w-4 mr-2" />
+                      Sign Up
+                    </Button>
                   </Link>
                   <Link to="/interview">
                     <Button className="w-full bg-aicruiter-blue hover:bg-blue-700">Start Interview</Button>

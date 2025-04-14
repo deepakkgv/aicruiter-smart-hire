@@ -12,6 +12,7 @@ import About from "./pages/About";
 import Interview from "./pages/Interview";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
+import SignUp from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
 import { AuthProvider } from "./contexts/AuthContext";
 
@@ -34,6 +35,7 @@ const App = () => (
                 <Route path="/interview" element={<Interview />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/admin" element={<Admin />} />
+                <Route path="/signup" element={<SignUp />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>

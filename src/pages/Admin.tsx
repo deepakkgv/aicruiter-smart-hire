@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -6,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
-import { Eye, EyeOff, Lock, Mail, User, Users, FileText, Download, Search } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, User, Users, FileText, Download, Search, UserPlus } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
 const Admin: React.FC = () => {
@@ -195,6 +196,17 @@ const Admin: React.FC = () => {
             </TabsContent>
           </Tabs>
         </CardContent>
+        <CardFooter className="flex justify-center">
+          <div className="text-center">
+            <p className="text-sm text-gray-500 mb-3">
+              Don't have an account?
+            </p>
+            <Button onClick={() => navigate('/signup')} variant="outline" className="flex items-center">
+              <UserPlus className="h-4 w-4 mr-2" />
+              Create an Account
+            </Button>
+          </div>
+        </CardFooter>
       </Card>
     </div>
   );
