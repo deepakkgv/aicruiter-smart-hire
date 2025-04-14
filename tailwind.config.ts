@@ -69,6 +69,8 @@ export default {
 					teal: '#0d9488',
 					lightblue: '#60a5fa',
 					purple: '#a78bfa',
+					green: '#22c55e',
+					dark: '#000000',
 				}
 			},
 			fontFamily: {
@@ -108,10 +110,10 @@ export default {
 				},
 				'pulse-slow': {
 					'0%, 100%': {
-						opacity: 1
+						opacity: '1'
 					},
 					'50%': {
-						opacity: 0.8
+						opacity: '0.8'
 					}
 				}
 			},
