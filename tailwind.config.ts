@@ -65,15 +65,10 @@ export default {
 				},
 				// Custom colors for AIcruiter
 				aicruiter: {
-					green: '#22c55e',
-					dark: '#000000',
-					lightgreen: '#4ade80',
-					mediumgreen: '#16a34a',
-					darkgreen: '#166534',
-					emerald: '#10b981',
-					black: '#000000',
-					gray: '#333333',
-					lightgray: '#555555',
+					blue: '#2563eb',
+					teal: '#0d9488',
+					lightblue: '#60a5fa',
+					purple: '#a78bfa',
 				}
 			},
 			fontFamily: {
@@ -113,10 +108,10 @@ export default {
 				},
 				'pulse-slow': {
 					'0%, 100%': {
-						opacity: '1'
+						opacity: 1
 					},
 					'50%': {
-						opacity: '0.8'
+						opacity: 0.8
 					}
 				}
 			},
