@@ -65,12 +65,15 @@ export default {
 				},
 				// Custom colors for AIcruiter
 				aicruiter: {
-					blue: '#2563eb',
-					teal: '#0d9488',
-					lightblue: '#60a5fa',
-					purple: '#a78bfa',
 					green: '#22c55e',
 					dark: '#000000',
+					lightgreen: '#4ade80',
+					mediumgreen: '#16a34a',
+					darkgreen: '#166534',
+					emerald: '#10b981',
+					black: '#000000',
+					gray: '#333333',
+					lightgray: '#555555',
 				}
 			},
 			fontFamily: {

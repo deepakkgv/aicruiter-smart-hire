@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, LogOut, UserPlus } from 'lucide-react';
+import { Menu, X, LogOut, UserPlus, FileText } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import Logo from './Logo';
 
@@ -34,6 +34,9 @@ const Navbar: React.FC = () => {
               <Link to="/services" className="px-3 py-2 text-sm font-medium text-foreground hover:text-primary animated-border">
                 Services
               </Link>
+              <Link to="/upload-resume" className="px-3 py-2 text-sm font-medium text-foreground hover:text-primary animated-border">
+                Upload Resume
+              </Link>
               {isLoggedIn && (
                 <Link to="/dashboard" className="px-3 py-2 text-sm font-medium text-foreground hover:text-primary animated-border">
                   Dashboard
@@ -58,7 +61,7 @@ const Navbar: React.FC = () => {
                   <Button variant="outline" className="mr-4 text-foreground border-primary hover:bg-primary hover:text-primary-foreground">Login</Button>
                 </Link>
                 <Link to="/signup">
-                  <Button variant="outline" className="mr-4 flex items-center text-foreground border-primary hover:bg-primary hover:text-primary-foreground">
+                  <Button variant="outline" className="flex items-center text-foreground border-primary hover:bg-primary hover:text-primary-foreground">
                     <UserPlus className="h-4 w-4 mr-2" />
                     Sign Up
                   </Button>
@@ -89,6 +92,9 @@ const Navbar: React.FC = () => {
             </Link>
             <Link to="/services" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:text-primary">
               Services
+            </Link>
+            <Link to="/upload-resume" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:text-primary">
+              Upload Resume
             </Link>
             {isLoggedIn && (
               <Link to="/dashboard" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:text-primary">
